@@ -1,0 +1,11 @@
+name: jackenv
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.13
+  - random
+  - fastapi
+  - pydantic
+  - uvicorn
+  - pytest
