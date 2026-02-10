@@ -58,15 +58,7 @@ def player_choice():
             print("Invalid choice. Please enter 'h' to hit or 's' to stand.")
 
 
-def main():
-    deck = create_deck()
-    shuffle_deck(deck)
-
-    print("Welcome to Blackjack!")
-    print("The goal is to get as close to 21 as possible without going over.")
-    print("Face cards are worth 10, and Aces can be worth 1 or 11.")
-    print(" press 'h' to hit or 's' to stand.")
-    #dealing logic 
+def play_hand(deck):
     player_hand = [dealing_card(deck)]
     dealer_hand = [dealing_card(deck)]
     player_hand.append(dealing_card(deck))
@@ -81,7 +73,10 @@ def main():
         print(check_winner(player_hand, dealer_hand))
         return
 
-    while player_choice() == False:
+    while calculate_hand_value(player_hand) < 21 and player_choice() == False:
+        if len(deck) == 0:
+            print("Out of cards! Game over!")
+            return
         player_hand.append(dealing_card(deck))
         display_hand(player_hand, "Player")
         if calculate_hand_value(player_hand) > 21:
@@ -89,9 +84,35 @@ def main():
 
     display_hand(dealer_hand, "Dealer")
     while calculate_hand_value(dealer_hand) < 17:
+        if len(deck) == 0:
+            print("Out of cards! Game over!")
+            return
         dealer_hand.append(dealing_card(deck))
-        display_hand(dealer_hand, "Dealer") 
+        display_hand(dealer_hand, "Dealer")
     print(check_winner(player_hand, dealer_hand))
+
+
+def main():
+    deck = create_deck()
+    shuffle_deck(deck)
+
+    print("Welcome to Blackjack!")
+    print("The goal is to get as close to 21 as possible without going over.")
+    print("Face cards are worth 10, and Aces can be worth 1 or 11.")
+    print(" press 'h' to hit or 's' to stand.")
+
+    while True:
+        if len(deck) < 4:
+            print("Not enough cards left in the deck. Game over!")
+            break
+
+        print(f"\n--- New Hand ({len(deck)} cards remaining) ---")
+        play_hand(deck)
+
+        play_again = input("\nPlay another hand? (y/n): ").lower()
+        if play_again != 'y':
+            print("Thanks for playing!")
+            break
 if __name__ == "__main__":
     main()
 
