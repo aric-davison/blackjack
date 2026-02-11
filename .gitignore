@@ -11,3 +11,7 @@ ingore
 *.swp
 *.swo       
 _pycache__/
+*.pyc
+*.pyo
+*.pyd
+
