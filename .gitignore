@@ -1,4 +1,3 @@
-ingore
 /.vscode/
 /node_modules/
 /dist/
@@ -10,7 +9,7 @@ ingore
 *.bak
 *.swp
 *.swo       
-_pycache__/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
