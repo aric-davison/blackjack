@@ -4,8 +4,6 @@ channels:
   - conda-forge
 dependencies:
   - python=3.13
-  - random
-  - fastapi
-  - pydantic
-  - uvicorn
+  - textual
+  - textual-dev
   - pytest

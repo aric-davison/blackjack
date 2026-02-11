@@ -10,3 +10,4 @@ ingore
 *.bak
 *.swp
 *.swo       
+_pycache__/
