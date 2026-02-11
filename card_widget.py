@@ -54,7 +54,7 @@ class CardWidget(Static):
                [" ", "X", " "]],
         "10": [["X", " ", "X"],
                ["X", "X", "X"],
-               [" ", "X", " "],
+               [" ", " ", " "],
                ["X", "X", "X"],
                ["X", " ", "X"]],
         "J":  [[" ", " ", " "],
@@ -94,8 +94,13 @@ class CardWidget(Static):
                 "└───────────┘"
             )
 
-        tl = f"{self.rank}{self.suit}".ljust(5)
-        br = f"{self.suit}{self.rank}".rjust(5)
+        face_cards = {"J", "Q", "K", "A"}
+        if self.rank in face_cards:
+            tl = f"{self.rank}{self.suit}".ljust(5)
+            br = f"{self.suit}{self.rank}".rjust(5)
+        else:
+            tl = f"{self.rank}".ljust(5)
+            br = f"{self.rank}".rjust(5)
         pips = self.PIPS.get(self.rank, [[" "]*3]*5)
 
         rows = [
