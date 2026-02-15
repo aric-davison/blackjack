@@ -1,3 +1,6 @@
+from .deck import Card
+
+
 class Hand:
     def __init__(self):
         self.cards = []

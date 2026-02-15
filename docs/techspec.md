@@ -37,8 +37,7 @@ blackjack/
 │   ├── __init__.py
 │   ├── core/                # Shared across all games
 │   │   ├── __init__.py
-│   │   ├── card.py          # Card class (rank, suit, value)
-│   │   ├── deck.py          # Deck class (create, shuffle, deal)
+│   │   ├── deck.py          # Card + Deck classes (create, shuffle, deal)
 │   │   └── player.py        # Player class (name, chips, betting)
 │   │
 │   ├── ui/                  # Shared UI components
@@ -59,7 +58,6 @@ blackjack/
 │
 ├── tests/
 │   ├── __init__.py
-│   ├── test_card.py
 │   ├── test_deck.py
 │   ├── test_player.py
 │   └── test_blackjack.py
@@ -83,18 +81,12 @@ blackjack/
 
 ## Core Modules
 
-### `src/core/card.py` — Card Model
+### `src/core/deck.py` — Card + Deck
 
-Shared card representation used by all games.
+Card and Deck live in the same file since they're tightly coupled — a Deck is always a collection of Cards and you'd never import one without the other.
 
 - `Card` class with `rank`, `suit`, `value` attributes
 - Suit symbols mapping (Hearts -> ♥, etc.)
-- String representation for display and debugging
-
-### `src/core/deck.py` — Deck Management
-
-Generic deck operations, decoupled from any specific game.
-
 - `Deck` class wrapping a list of `Card` objects
 - `create()` — build a standard 52-card deck
 - `shuffle()` — randomize the deck in place
@@ -145,7 +137,7 @@ Carried over from current `card_widget.py`, updated to accept `Card` objects.
 ### Adding a New Game
 
 1. Create `src/games/<game_name>/` with `game.py` and `screen.py`
-2. Game logic uses `Card` and `Deck` from `src/core/`
+2. Game logic imports `Card` and `Deck` from `src/core/deck`
 3. Register the game in the lobby screen
 4. Game-specific styles go in its own `styles.tcss`
 
@@ -155,7 +147,7 @@ This is the order of work for the refactor:
 
 1. **Archive current code** — copy all current source files into `archive/`
 2. **Create directory structure** — set up `src/`, `src/core/`, `src/ui/`, `src/games/blackjack/`, `tests/`
-3. **Extract core modules** — pull deck/card logic out of `black_jack.py` into `src/core/card.py` and `src/core/deck.py`
+3. **Extract core modules** — pull deck/card logic out of `black_jack.py` into `src/core/deck.py`
 4. **Integrate player module** — move and update `player.py` into `src/core/player.py`, wire `Hand` into the game
 5. **Move UI components** — migrate `card_widget.py` and styles into `src/ui/`
 6. **Build lobby** — create `CasinoApp` with a lobby screen and game selection
