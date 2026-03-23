@@ -1,15 +1,13 @@
-# main app state and logic
+from textual.app import App
 
-from enum import Enum, auto
-
-class GameState(Enum):
-    
+from src.ui.screens import WelcomeScreen
 
 
+class CasinoApp(App):
+    """Casino Playground - main Textual application."""
 
-class App:
-    def __init__(self):
-        self.state = "main_menu"
+    CSS_PATH = "styles.tcss"
+    TITLE = "Casino Playground"
 
-app 
-
+    def on_mount(self):
+        self.push_screen(WelcomeScreen())

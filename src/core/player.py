@@ -30,8 +30,20 @@ class Hand:
         return len(self.cards) == 2 and self.get_value() == 21
 
     def is_soft(self):
-        # has an ace counting as 11
-        ...
+        """Return True if the hand has an ace counting as 11."""
+        value = 0
+        aces = 0
+        for card in self.cards:
+            if card.rank == 'A':
+                aces += 1
+                value += 11
+            else:
+                value += card.value
+        reduced = 0
+        while value > 21 and reduced < aces:
+            value -= 10
+            reduced += 1
+        return reduced < aces
 
 
 class Player:
